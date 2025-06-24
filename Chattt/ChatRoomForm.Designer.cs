@@ -28,56 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            chatRichTextBox = new RichTextBox();
-            chatTextBox = new TextBox();
-            chatListBox = new ListBox();
-            chatButton = new Button();
+            chatDisplayRichTextBox = new RichTextBox();
+            messageInputTextBox = new TextBox();
+            participantsListBox = new ListBox();
+            sendButton = new Button();
             SuspendLayout();
             // 
             // chatDisplayRichTextBox
             // 
-            chatRichTextBox.Location = new Point(-3, 1);
-            chatRichTextBox.Name = "chatDisplayRichTextBox";
-            chatRichTextBox.ReadOnly = true;
-            chatRichTextBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            chatRichTextBox.Size = new Size(609, 360);
-            chatRichTextBox.TabIndex = 0;
-            chatRichTextBox.Text = "";
+            chatDisplayRichTextBox.Location = new Point(-3, 1);
+            chatDisplayRichTextBox.Name = "chatDisplayRichTextBox";
+            chatDisplayRichTextBox.ReadOnly = true;
+            chatDisplayRichTextBox.ScrollBars = RichTextBoxScrollBars.Vertical;
+            chatDisplayRichTextBox.Size = new Size(609, 360);
+            chatDisplayRichTextBox.TabIndex = 0;
+            chatDisplayRichTextBox.Text = "";
             // 
-            // chatTextBox
+            // messageInputTextBox
             // 
-            chatTextBox.Location = new Point(0, 393);
-            chatTextBox.Name = "chatTextBox";
-            chatTextBox.Size = new Size(606, 23);
-            chatTextBox.TabIndex = 1;
+            messageInputTextBox.Location = new Point(0, 393);
+            messageInputTextBox.Name = "messageInputTextBox";
+            messageInputTextBox.Size = new Size(606, 23);
+            messageInputTextBox.TabIndex = 1;
             // 
-            // chatListBox
+            // participantsListBox
             // 
-            chatListBox.FormattingEnabled = true;
-            chatListBox.ItemHeight = 15;
-            chatListBox.Location = new Point(612, 1);
-            chatListBox.Name = "chatListBox";
-            chatListBox.Size = new Size(176, 364);
-            chatListBox.TabIndex = 2;
+            participantsListBox.FormattingEnabled = true;
+            participantsListBox.ItemHeight = 15;
+            participantsListBox.Location = new Point(612, 1);
+            participantsListBox.Name = "participantsListBox";
+            participantsListBox.Size = new Size(176, 364);
+            participantsListBox.TabIndex = 2;
             // 
-            // chatButton
+            // sendButton
             // 
-            chatButton.Location = new Point(645, 394);
-            chatButton.Name = "chatButton";
-            chatButton.Size = new Size(75, 23);
-            chatButton.TabIndex = 3;
-            chatButton.Text = "입력";
-            chatButton.UseVisualStyleBackColor = true;
+            sendButton.Location = new Point(645, 394);
+            sendButton.Name = "sendButton";
+            sendButton.Size = new Size(75, 23);
+            sendButton.TabIndex = 3;
+            sendButton.Text = "입력";
+            sendButton.UseVisualStyleBackColor = true;
             // 
             // ChatRoomForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(chatButton);
-            Controls.Add(chatListBox);
-            Controls.Add(chatTextBox);
-            Controls.Add(chatRichTextBox);
+            Controls.Add(sendButton);
+            Controls.Add(participantsListBox);
+            Controls.Add(messageInputTextBox);
+            Controls.Add(chatDisplayRichTextBox);
             Name = "ChatRoomForm";
             Text = "ChatRoomForm";
             ResumeLayout(false);
@@ -86,9 +86,9 @@
 
         #endregion
 
-        private RichTextBox chatRichTextBox;
-        private TextBox chatTextBox;
-        private ListBox chatListBox;
-        private Button chatButton;
+        private RichTextBox chatDisplayRichTextBox;
+        private TextBox messageInputTextBox;
+        private ListBox participantsListBox;
+        private Button sendButton;
     }
 }

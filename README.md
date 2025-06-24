@@ -33,6 +33,38 @@
 * **개발 도구**: Visual Studio
 
 ---
+# Chattt 클라이언트-서버 패킷 설계
+
+콜론(`:`)으로 구분된 텍스트 메시지를 사용합니다.
+
+---
+
+## 1. 클라이언트 (C) → 서버 (S) 요청
+
+| 명령어 (`COMMAND`) | 필드 1 (`DATA1`) | 필드 2 (`DATA2`) | 예시 |
+| :----------------- | :--------------- | :--------------- | :------------------- |
+| `LOGIN`            | 사용자 ID        | 비밀번호         | `LOGIN:user1:pass1` |
+| `REGISTER`         | 사용자 ID        | 비밀번호         | `REGISTER:newuser:newpass` |
+| `CHAT_MESSAGE`     | 발신자 ID        | 메시지 내용      | `CHAT_MESSAGE:user1:Hello!` |
+| `REQUEST_PARTICIPANTS` | (없음)           | (없음)           | `REQUEST_PARTICIPANTS` |
+
+---
+
+## 2. 서버 (S) → 클라이언트 (C) 응답 및 알림
+
+| 명령어 (`COMMAND`) | 필드 1 (`DATA1`) | 필드 2 (`DATA2`) | 예시 |
+| :----------------- | :--------------- | :--------------- | :------------------- |
+| `LOGIN_SUCCESS`    | 사용자 ID        | (없음)           | `LOGIN_SUCCESS:user1` |
+| `LOGIN_FAIL`       | 실패 이유        | (없음)           | `LOGIN_FAIL:InvalidUser` (ID/PW 불일치)<br>`LOGIN_FAIL:AlreadyLoggedIn` (중복 로그인) |
+| `REGISTER_SUCCESS` | 사용자 ID        | (없음)           | `REGISTER_SUCCESS:newuser` |
+| `REGISTER_FAIL`    | 실패 이유        | (없음)           | `REGISTER_FAIL:IDExists` (ID 중복) |
+| `CHAT_MESSAGE`     | 발신자 ID        | 메시지 내용      | `CHAT_MESSAGE:user2:Hi there!` |
+| `USER_JOINED`      | 사용자 ID        | (없음)           | `USER_JOINED:user3` |
+| `USER_LEFT`        | 사용자 ID        | (없음)           | `USER_LEFT:user3` |
+| `PARTICIPANTS_LIST`| 콤마로 구분된 ID 목록 | (없음)           | `PARTICIPANTS_LIST:user1,user2,user3` |
+| `ERROR`            | 오류 메시지      | (없음)           | `ERROR:InvalidCommand` <br> `ERROR:NotLoggedIn` |
+
+---
 
 ## 📄 라이선스
 

@@ -13,8 +13,6 @@ namespace Chattt_Server
         private ConcurrentDictionary<string, string> _usersInMemory = new ConcurrentDictionary<string, string>();
         private UserManager()
         {
-            _usersInMemory.TryAdd("testuser", "1234");
-            _usersInMemory.TryAdd("user1", "pass1");
             Console.WriteLine("[UserManager] 초기 테스트 계정 로드 완료.");
         }
         public static UserManager Instance

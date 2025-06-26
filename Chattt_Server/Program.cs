@@ -10,7 +10,7 @@ namespace Chattt_Server
     internal class Program
     {
         private static TcpListener _listener;
-        private const int PORT = 12345;
+        private const int PORT = 3000;
 
         static async Task Main(string[] args)
         {

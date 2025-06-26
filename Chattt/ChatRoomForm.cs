@@ -15,15 +15,6 @@ namespace Chattt
         private TcpClient _client;
         private NetworkStream _stream;
 
-        // UI 컨트롤들은 디자이너에서 지정한 이름과 일치해야 합니다.
-        // 예를 들어 chatDisplayRichTextBox, messageInputTextBox, 
-        // participantsListBox, sendButton 등이 .Designer.cs 파일에 정의되어 있어야 합니다.
-        // private RichTextBox chatDisplayRichTextBox;
-        // private TextBox messageInputTextBox;
-        // private ListBox participantsListBox;
-        // private Button sendButton;
-
-
         // MainForm에서 로그인된 사용자 ID와 연결된 TcpClient 객체를 전달받을 생성자
         public ChatRoomForm(string userId, TcpClient client)
         {
@@ -46,12 +37,12 @@ namespace Chattt
             {
                 messageInputTextBox.Multiline = true;
                 messageInputTextBox.ScrollBars = ScrollBars.Vertical;
-                messageInputTextBox.AcceptsReturn = true; // Enter 키로 줄바꿈 허용 (Ctrl+Enter 또는 Shift+Enter로 전송)
-                messageInputTextBox.KeyDown += MessageInputTextBox_KeyDown; // Enter 키 이벤트 처리
+                messageInputTextBox.AcceptsReturn = true;
+                messageInputTextBox.KeyDown += MessageInputTextBox_KeyDown;
             }
             if (participantsListBox != null)
             {
-                participantsListBox.Sorted = true; // 자동으로 알파벳 순 정렬
+                participantsListBox.Sorted = true;
             }
             if (sendButton != null)
             {
@@ -85,7 +76,7 @@ namespace Chattt
         }
 
         // =========================================================
-        // 서버로부터 메시지 수신 및 파싱 (수정된 핵심 로직)
+        // 서버로부터 메시지 수신 및 파싱
         // =========================================================
         private async Task ReceiveChatMessagesAsync()
         {
@@ -114,7 +105,6 @@ namespace Chattt
             }
             catch (ObjectDisposedException)
             {
-                // 폼이 닫히면서 클라이언트/스트림이 이미 정리된 경우 정상적으로 발생하는 예외이므로 무시합니다.
                 Console.WriteLine("[DEBUG] Receive loop aborted due to ObjectDisposedException (expected on form close).");
             }
             catch (Exception ex)
@@ -139,7 +129,7 @@ namespace Chattt
 
             this.Invoke((MethodInvoker)delegate // UI 업데이트를 위해 Invoke 사용
             {
-                string[] parts = message.Split(new char[] { ':' }, 3); // 최대 3개로 분할 (CHAT_MESSAGE 대비)
+                string[] parts = message.Split(new char[] { ':' }, 3);
                 string command = parts[0];
 
                 switch (command)
@@ -148,7 +138,7 @@ namespace Chattt
                         if (parts.Length >= 3)
                         {
                             string sender = parts[1];
-                            string chatText = string.Join(":", parts.Skip(2)); // 메시지에 ':'가 포함될 경우를 대비
+                            string chatText = string.Join(":", parts.Skip(2));
                             Color messageColor = (sender == _loggedInUserId) ? Color.DarkGreen : Color.Black;
                             AddMessageToChatDisplay($"{sender}: {chatText}", messageColor);
                         }
@@ -192,7 +182,6 @@ namespace Chattt
             });
         }
 
-        // 채팅창에 메시지를 추가하고 스크롤하는 헬퍼 메서드
         private void AddMessageToChatDisplay(string message, Color color)
         {
             if (chatDisplayRichTextBox.IsDisposed) return;
@@ -316,8 +305,6 @@ namespace Chattt
             {
                 try
                 {
-                    // USER_LEFT 메시지를 보내는 것은 좋은 관행이지만,
-                    // 이 시점에는 이미 연결이 불안정할 수 있으므로 예외 처리가 중요합니다.
                     await SendMessageAsync($"USER_LEFT:{_loggedInUserId}");
                 }
                 catch (Exception ex)
